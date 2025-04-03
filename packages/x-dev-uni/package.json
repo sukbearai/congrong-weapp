@@ -1,0 +1,48 @@
+{
+  "name": "x-dev-uni",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "some basic developing tools",
+  "author": "suk.bear <suk.bear.suwu@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/sukbearai/x-dev-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sukbearai/x-dev-tools"
+  },
+  "bugs": "https://github.com/sukbearai/x-dev-tools/issues",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./logger": {
+      "types": "./dist/logger.d.ts",
+      "default": "./dist/logger.mjs"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.ts",
+      "default": "./dist/preset.mjs"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.mjs"
+    }
+  },
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "dependencies": {
+    "@x-dev-uni/logger": "workspace:*",
+    "@x-dev-uni/preset": "workspace:*",
+    "@x-dev-uni/utils": "workspace:*"
+  }
+}

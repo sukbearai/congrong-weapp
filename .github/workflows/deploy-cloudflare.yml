@@ -1,0 +1,76 @@
+name: Deploy Nitro App to Cloudflare
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/congrong-private-api/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 部署环境 (dev/staging/prod)
+        required: true
+        default: prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Nitro App
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Nitro App
+        run: pnpm --filter congrong-private-api build
+        env:
+          # 设置构建时所需的环境变量
+          NITRO_PRESET: cloudflare_module
+          appId: ${{ secrets.APP_ID }}
+          appSecret: ${{ secrets.APP_SECRET }}
+          jwtSecret: ${{ secrets.JWT_SECRET }}
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/congrong-private-api/.output
+          # 如果使用环境参数，则添加环境条件
+          command: deploy ${{ github.event_name == 'workflow_dispatch' && format('--env {0}', github.event.inputs.environment) || '' }}
+          # 设置运行时环境变量（Workers 密钥）
+          secrets: |
+            appId
+            appSecret
+            jwtSecret
+        env:
+          appId: ${{ secrets.APP_ID }}
+          appSecret: ${{ secrets.APP_SECRET }}
+          jwtSecret: ${{ secrets.JWT_SECRET }}

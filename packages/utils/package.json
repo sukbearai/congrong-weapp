@@ -1,0 +1,43 @@
+{
+  "name": "@x-dev-uni/utils",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "x-dev-tools utils library",
+  "author": "suk.bear <suk.bear.suwu@gamil.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/sukbearai/x-dev-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sukbearai/x-dev-tools"
+  },
+  "bugs": "https://github.com/sukbearai/x-dev-tools/issues",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "dependencies": {
+    "vue": "catalog:",
+    "xlsx": "^0.18.5"
+  }
+}

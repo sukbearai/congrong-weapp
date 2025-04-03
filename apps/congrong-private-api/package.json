@@ -1,0 +1,19 @@
+{
+  "name": "congrong-private-api",
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.6",
+    "drizzle-orm": "^0.41.0",
+    "jose": "^6.0.10",
+    "nitro-cloudflare-dev": "^0.2.2",
+    "nitropack": "latest",
+    "wrangler": "^4.7.0",
+    "zod": "^3.24.2"
+  }
+}

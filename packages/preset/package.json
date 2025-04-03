@@ -1,0 +1,45 @@
+{
+  "name": "@x-dev-uni/preset",
+  "type": "module",
+  "version": "0.1.0",
+  "description": " css rules for unocss preset",
+  "author": "suk.bear <suk.bear.suwu@gamil.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/sukbearai/x-dev-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sukbearai/x-dev-tools"
+  },
+  "bugs": "https://github.com/sukbearai/x-dev-tools/issues",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./helper": {
+      "types": "./dist/helper.d.ts",
+      "import": "./dist/helper.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "dependencies": {
+    "@unocss/core": "catalog:",
+    "@unocss/preset-icons": "catalog:",
+    "@unocss/preset-mini": "catalog:",
+    "@unocss/preset-web-fonts": "catalog:",
+    "magic-color": "catalog:"
+  },
+  "devDependencies": {
+    "unocss": "catalog:"
+  }
+}

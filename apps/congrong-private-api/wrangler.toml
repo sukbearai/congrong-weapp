@@ -1,0 +1,28 @@
+name = "congrong-private-api"
+compatibility_date = "2025-04-02"
+main = "./.output/server/index.mjs"
+assets = { directory = "./.output/public/", binding = "ASSETS" }
+compatibility_flags = [ "nodejs_compat" ]
+
+[[kv_namespaces]]
+binding = "congrong-private-api"
+id = "e9e92f2876434a598a9f324f4b2c59e1"
+
+[env.dev]
+name = "congrong-private-api-dev"
+
+[env.staging]
+name = "congrong-private-api-staging"
+
+[env.prod]
+name = "congrong-private-api"
+
+[observability]
+enabled = true
+head_sampling_rate = 1 # optional. default = 1.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "congrong-private-api"
+database_id = "e1dc8fed-7fc3-401b-8cd9-b211429daae3"
+migrations_dir = "drizzle"
